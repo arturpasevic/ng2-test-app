@@ -4,15 +4,25 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { HeaderComponent} from './header-component/header-component.component';
+import { LeftMenuComponent } from './left-menu-component/left-menu-component.component';
+import {routing} from "./app.routes";
+import { DatatableComponent } from './datatable/datatable.component';
+import { BindingComponent } from './binding/binding.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    LeftMenuComponent,
+    DatatableComponent,
+    BindingComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing
   ],
   providers: [],
   bootstrap: [AppComponent]
