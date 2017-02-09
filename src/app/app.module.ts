@@ -9,6 +9,7 @@ import { LeftMenuComponent } from './left-menu-component/left-menu-component.com
 import {routing} from "./app.routes";
 import { DatatableComponent } from './datatable/datatable.component';
 import { BindingComponent } from './binding/binding.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BindingComponent } from './binding/binding.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    NgxDatatableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
