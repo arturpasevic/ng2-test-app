@@ -5,8 +5,9 @@ import {DatatableComponent} from "./datatable/datatable.component";
 
 const APP_ROUTES: Routes = [
   {path: '', component: AppComponent},
-  {path: 'binding', component: DatatableComponent},
-  {path: 'datatable', component: BindingComponent},
+  {path: 'datatable', component: DatatableComponent},
+  {path: 'binding', component: BindingComponent},
+  {path: 'binding/:id', component: BindingComponent},
 ];
 
 export const routing = RouterModule.forRoot(APP_ROUTES);

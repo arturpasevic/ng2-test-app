@@ -1,39 +1,33 @@
 import {Component, OnInit} from '@angular/core';
 import {UserdataService} from "../service/userdata.service";
-import {Response} from "@angular/http";
+import {Person} from "../models/person";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-datatable',
   styleUrls: ['./datatable.component.css'],
-  providers: [UserdataService],
-  template: `
-  <div>
-    <ngx-datatable class="material" [rows]="rows">
-        <ngx-datatable-column name="Name" [width]="300" prop="name.first"></ngx-datatable-column>
-        <ngx-datatable-column name="Surname" [width]="300" prop="name.last"></ngx-datatable-column>
-        <ngx-datatable-column name="Age" [width]="300" prop="age"></ngx-datatable-column>
-        <ngx-datatable-column name="Photo" [width]="300" prop="picture">
-                    <template ngx-datatable-cell-template let-row="row" let-value="value">
-                      <img src="{{value}}" alt="{{value}}">
-                    </template>
-        </ngx-datatable-column>
-    </ngx-datatable>
-  </div>
-  `
+  templateUrl: './datatable-component.html'
 })
 
 export class DatatableComponent implements OnInit {
-  private rows = [];
+  private rows: Person[] = [];
+  private selected = [];
+  private selectedPerson: Person;
 
-  constructor(private userService: UserdataService) {
+  constructor(private userService: UserdataService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.userService.getData().subscribe(
-      (data: any) => {
-        this.rows = data;
-        console.log(data);
-      }
-    );
+    this.rows = this.userService.getData();
+  }
+
+  onSelect(event) {
+    console.log('Select Event', event.selected[0]);
+    this.selectedPerson = UserdataService.createPerson(event.selected[0]);
+    this.navigateToEdit();
+  }
+
+  navigateToEdit() {
+    this.router.navigate(['/binding', this.selectedPerson.id]);
   }
 }
