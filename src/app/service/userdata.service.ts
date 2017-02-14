@@ -27,10 +27,10 @@ export class UserdataService {
     });
   }
 
-  private fetchData(): Promise<Person[]> {
+  private  fetchData(): Promise<Person[]> {
     return this.http.get(this.DATA_URL)
       .toPromise()
-      .then((response: Response) => response.json().data as Person[])
+      .then((response: Response) => response.json() as Person[])
       .catch(this.handleError);
   }
 
@@ -38,12 +38,12 @@ export class UserdataService {
     return this.persons[id];
   }
 
-  static createPerson(object) {
+  static  createPerson(object) {
     let addr = new Address(object.address.state, object.address.city);
     return new Person(object.id, object.name, object.gender, object.age, addr);
   }
 
-  private handleError(error: any): Promise<any> {
+  private  handleError(error: any): Promise < any > {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
