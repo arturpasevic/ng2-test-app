@@ -32,12 +32,14 @@ export class BindingComponent implements OnInit {
   }
 
   onSubmit() {
-    this.person = this.prepareUpdatedPerson();
-    this.userService.updatePerson(this.person);
-    this.userService.storeData(this.userService.getData()).subscribe(
+    let p;
+    this.userService.getData().then(persons => p = persons);
+    this.userService.storeData(p).subscribe(
       data => console.log("storeData: ", data),
       error => console.log("storeData error: ", error)
     );
+    this.person = this.prepareUpdatedPerson();
+    this.userService.updatePerson(this.person);
   }
 
   private prepareUpdatedPerson() {

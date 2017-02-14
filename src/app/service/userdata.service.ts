@@ -10,14 +10,28 @@ export class UserdataService {
 
   // private DATA_URL: string = 'http://beta.json-generator.com/api/json/get/EJfI2IrdM';
   // private DATA_URL: string = 'https://raw.githubusercontent.com/swimlane/ngx-datatable/master/assets/data/100k.json';
+
   private DATA_URL: string = 'https://ng2-test-13107.firebaseio.com/persons.json';
 
   constructor(private http: Http) {
-    this.fetchData();
   }
 
-  getData(): Person[] {
-    return this.persons;
+  getData(): Promise<Person[]> {
+    return Promise.resolve(() => {
+      if (this.persons.length == 0) {
+        this.fetchData().then(p => {
+          this.persons = p;
+          return this.persons;
+        })
+      }
+    });
+  }
+
+  private fetchData(): Promise<Person[]> {
+    return this.http.get(this.DATA_URL)
+      .toPromise()
+      .then((response: Response) => response.json().data as Person[])
+      .catch(this.handleError);
   }
 
   getPerson(id: number): Person {
@@ -29,24 +43,18 @@ export class UserdataService {
     return new Person(object.id, object.name, object.gender, object.age, addr);
   }
 
-  fetchData() {
-    this.http.get(this.DATA_URL)
-      .map((response: Response) => response.json())
-      .subscribe(
-        (data: Person[]) => {
-          this.persons = data;
-        }
-      );
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
   }
 
   storeData(persons: Person[]) {
-    const url = 'https://ng2-test-13107.firebaseio.com/persons.json';
     const body = JSON.stringify(persons.slice(0, 100));
     // const body = JSON.stringify(persons);
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
-    return this.http.put(url, body, {headers: headers});
+    return this.http.put(this.DATA_URL, body, {headers: headers});
   }
 
   updatePerson(person: Person) {

@@ -15,8 +15,7 @@ export class DatatableComponent implements OnInit {
   private selectedPerson: Person;
 
   constructor(private userService: UserdataService, private router: Router) {
-    this.userService.fetchData();
-    this.rows = this.userService.getData();
+    this.userService.getData().then(persons => this.rows = persons);
   }
 
   ngOnInit(): void {

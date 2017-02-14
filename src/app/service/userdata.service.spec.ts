@@ -15,8 +15,8 @@ describe('UserdataService', () => {
   });
 
   it('should return something', async(inject([UserdataService], (service: UserdataService) => { // async due to async methods
-    service.fetchData();
-    const data: Person[] = service.getData();
-    expect(data.length).toBeGreaterThanOrEqual(1);
+     service.getData().then(data =>{
+      expect(data.length).toBeGreaterThanOrEqual(1);
+    });
   })))
 });
