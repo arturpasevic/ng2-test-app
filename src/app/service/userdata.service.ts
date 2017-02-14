@@ -9,7 +9,8 @@ export class UserdataService {
   private persons: Person[] = [];
 
   // private DATA_URL: string = 'http://beta.json-generator.com/api/json/get/EJfI2IrdM';
-  private DATA_URL: string = 'https://raw.githubusercontent.com/swimlane/ngx-datatable/master/assets/data/100k.json';
+  // private DATA_URL: string = 'https://raw.githubusercontent.com/swimlane/ngx-datatable/master/assets/data/100k.json';
+  private DATA_URL: string = 'https://ng2-test-13107.firebaseio.com/persons.json';
 
   constructor(private http: Http) {
     this.fetchData();
@@ -29,7 +30,7 @@ export class UserdataService {
   }
 
   fetchData() {
-    return this.http.get(this.DATA_URL)
+    this.http.get(this.DATA_URL)
       .map((response: Response) => response.json())
       .subscribe(
         (data: Person[]) => {
@@ -40,7 +41,8 @@ export class UserdataService {
 
   storeData(persons: Person[]) {
     const url = 'https://ng2-test-13107.firebaseio.com/persons.json';
-    const body = JSON.stringify(persons);
+    const body = JSON.stringify(persons.slice(0, 100));
+    // const body = JSON.stringify(persons);
     const headers = new Headers({
       'Content-Type': 'application/json'
     });

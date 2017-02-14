@@ -13,10 +13,7 @@
     <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
     <ngx-datatable-column name="Gender" prop="gender"></ngx-datatable-column>
     <ngx-datatable-column name="Age" prop="age"></ngx-datatable-column>
-    <ngx-datatable-column name="Photo" prop="picture">
-      <template ngx-datatable-cell-template let-row="row" let-value="value">
-        <img src="{{value}}" alt="{{value}}">
-      </template>
+    <ngx-datatable-column name="Addr" prop="address.city">
     </ngx-datatable-column>
   </ngx-datatable>
 </div>

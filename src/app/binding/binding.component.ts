@@ -3,9 +3,9 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Rx";
 import {UserdataService} from "../service/userdata.service";
 import {Person} from "../models/person";
-import {FormGroup, FormControl, FormBuilder} from "@angular/forms";
+import {FormGroup, FormBuilder} from "@angular/forms";
 import {Address} from "../models/address";
-
+import {tryCatch} from "rxjs/util/tryCatch";
 @Component({
   selector: 'app-binding',
   templateUrl: './binding.component.html',
@@ -34,21 +34,24 @@ export class BindingComponent implements OnInit {
   onSubmit() {
     this.person = this.prepareUpdatedPerson();
     this.userService.updatePerson(this.person);
-    this.userService.storeData(this.userService.getData());
+    this.userService.storeData(this.userService.getData()).subscribe(
+      data => console.log("storeData: ", data),
+      error => console.log("storeData error: ", error)
+    );
   }
 
   private prepareUpdatedPerson() {
-    const formModel = this.myForm.value;
-    const addressDeepCopy: Address = formModel.address.map(
-      (address: Address) => Object.assign({}, address)
-    );
+    let formModel = this.myForm.value;
+    let addressDeepCopy = {};
+
+    Object.assign(addressDeepCopy, formModel.address);
 
     return {
       id: this.person.id,
       name: formModel.name as string,
       gender: formModel.gender as string,
       age: formModel.age as number,
-      address: addressDeepCopy,
+      address: addressDeepCopy as Address,
     };
   }
 

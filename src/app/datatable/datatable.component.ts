@@ -15,10 +15,11 @@ export class DatatableComponent implements OnInit {
   private selectedPerson: Person;
 
   constructor(private userService: UserdataService, private router: Router) {
+    this.userService.fetchData();
+    this.rows = this.userService.getData();
   }
 
   ngOnInit(): void {
-    this.rows = this.userService.getData();
   }
 
   onSelect(event) {
