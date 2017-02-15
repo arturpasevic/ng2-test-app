@@ -10,12 +10,15 @@ import {Router} from "@angular/router";
 })
 
 export class DatatableComponent implements OnInit {
-  private rows: Person[] = [];
+  private rows = [];
   private selected = [];
   private selectedPerson: Person;
 
   constructor(private userService: UserdataService, private router: Router) {
-    this.userService.getData().then(persons => this.rows = persons);
+    this.userService.getData().then(persons => {
+      console.log("Persons before:", JSON.stringify(persons.slice(0, 20)));
+      this.rows = persons;
+    });
   }
 
   ngOnInit(): void {

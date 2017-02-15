@@ -32,14 +32,17 @@ export class BindingComponent implements OnInit {
   }
 
   onSubmit() {
-    let p;
-    this.userService.getData().then(persons => p = persons);
-    this.userService.storeData(p).subscribe(
-      data => console.log("storeData: ", data),
-      error => console.log("storeData error: ", error)
-    );
     this.person = this.prepareUpdatedPerson();
+    console.log(this.person);
     this.userService.updatePerson(this.person);
+    let p: Person[] = [];
+    this.userService.getData().then(res => {
+      p = res;
+      this.userService.storeData().subscribe(
+        data => console.log("storeData: ", data),
+        error => console.log("storeData error: ", error)
+      );
+    });
   }
 
   private prepareUpdatedPerson() {
@@ -60,6 +63,7 @@ export class BindingComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
+        console.log("Router params: ", params);
         this.personIndex = params['id'];
         this.person = this.userService.getPerson(this.personIndex);
         if (this.personIndex >= 0) {
