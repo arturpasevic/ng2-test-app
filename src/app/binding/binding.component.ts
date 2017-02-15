@@ -12,9 +12,10 @@ import {tryCatch} from "rxjs/util/tryCatch";
   styleUrls: ['./binding.component.css']
 })
 export class BindingComponent implements OnInit {
-  private subscription: Subscription;
-  private personIndex: number;
-  private person: Person;
+  /** @internal */
+  subscription: Subscription;
+  personIndex: number;
+  person: Person;
 
   myForm: FormGroup;
 
