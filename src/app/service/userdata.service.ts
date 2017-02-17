@@ -10,6 +10,7 @@ export class UserdataService {
 
   // private DATA_URL: string = 'http://beta.json-generator.com/api/json/get/EJfI2IrdM';
   // private DATA_URL: string = 'https://raw.githubusercontent.com/swimlane/ngx-datatable/master/assets/data/100k.json';
+  // private DATA_URL_1: string = 'https://raw.githubusercontent.com/swimlane/ngx-datatable/master/assets/data/100k.json';
   private DATA_URL: string = 'https://ng2-test-13107.firebaseio.com/persons.json';
 
   constructor(private http: Http) {
@@ -40,13 +41,12 @@ export class UserdataService {
   }
 
   storeData(persons: Person[]) {
-    const url = 'https://ng2-test-13107.firebaseio.com/persons.json';
     const body = JSON.stringify(persons.slice(0, 100));
-    // const body = JSON.stringify(persons);
+    console.log(body);
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
-    return this.http.put(url, body, {headers: headers});
+    return this.http.put(this.DATA_URL, body, {headers: headers});
   }
 
   updatePerson(person: Person) {
