@@ -14,7 +14,7 @@ import {tryCatch} from "rxjs/util/tryCatch";
 export class BindingComponent implements OnInit {
   private subscription: Subscription;
   private personIndex: number;
-  private person: Person;
+  person: Person;
 
   myForm: FormGroup;
 

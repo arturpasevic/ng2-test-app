@@ -10,8 +10,8 @@ import {Router} from "@angular/router";
 })
 
 export class DatatableComponent implements OnInit {
-  private rows = [];
-  private selected = [];
+  rows: any = [];
+  selected: any = [];
   private selectedPerson: Person;
 
   constructor(private userService: UserdataService, private router: Router) {
@@ -24,7 +24,7 @@ export class DatatableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSelect(event) {
+  onSelect(event: any) {
     console.log('Select Event', event.selected[0]);
     this.selectedPerson = UserdataService.createPerson(event.selected[0]);
     this.navigateToEdit();

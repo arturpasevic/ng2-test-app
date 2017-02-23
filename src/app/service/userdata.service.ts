@@ -53,7 +53,7 @@ export class UserdataService {
     return this.persons[id];
   }
 
-  static  createPerson(object) {
+  static  createPerson(object:Person) {
     let addr = new Address(object.address.state, object.address.city);
     return new Person(object.id, object.name, object.gender, object.age, addr);
   }
